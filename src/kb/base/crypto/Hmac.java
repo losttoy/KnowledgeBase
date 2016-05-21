@@ -108,6 +108,37 @@ public class Hmac {
   return new SecretKeySpec(key, algorithm);
  }
  
+ private static byte[] encodeHmac(byte[] data, byte[] key, String algorithm) {
+	  Key k = toKey(key, algorithm);
+	  Mac mac = null;
+	  try {
+		  mac = Mac.getInstance(algorithm);
+		  mac.init(k);
+	  } catch (NoSuchAlgorithmException e) {
+		  e.printStackTrace();
+		  return new byte[0];
+	  }catch (InvalidKeyException e) {
+		  e.printStackTrace();
+		  return new byte[0];
+	  }
+	  return mac.doFinal(data);
+ }
+ 
+ private static byte[] encodeHmac(byte[] data, Key k, String algorithm) {
+	  Mac mac = null;
+	  try {
+		  mac = Mac.getInstance(algorithm);
+		  mac.init(k);
+	  } catch (NoSuchAlgorithmException e) {
+		  e.printStackTrace();
+		  return new byte[0];
+	  }catch (InvalidKeyException e) {
+		  e.printStackTrace();
+		  return new byte[0];
+	  }
+	  return mac.doFinal(data);
+ }
+ 
  /**
   * 使用HmacMD5消息摘要算法计算消息摘要
   * 
@@ -116,18 +147,7 @@ public class Hmac {
   * @return 消息摘要（长度为16的字节数组）
   */
  public static byte[] encodeHmacMD5(byte[] data, Key key){
-  Mac mac = null;
-  try {
-   mac = Mac.getInstance("HmacMD5");
-   mac.init(key);
-  } catch (NoSuchAlgorithmException e) {
-   e.printStackTrace();
-   return new byte[0];
-  }catch (InvalidKeyException e) {
-   e.printStackTrace();
-   return new byte[0];
-  }
-  return mac.doFinal(data);
+	 return encodeHmac(data, key, "HmacMD5");
  }
  
  /**
@@ -138,8 +158,7 @@ public class Hmac {
   * @return 消息摘要（长度为16的字节数组）
   */
  public static byte[] encodeHmacMD5(byte[] data, byte[] key){
-  Key k = toKey(key, "HmacMD5");
-  return encodeHmacMD5(data, k);
+	 return encodeHmac(data, key, "HmacMD5");
  }
  
  /**
@@ -150,18 +169,7 @@ public class Hmac {
   * @return 消息摘要（长度为16的字节数组）
   */
  public static byte[] encodeHmacSHA(byte[] data, Key key){
-  Mac mac = null;
-  try {
-   mac = Mac.getInstance("HmacSHA1");
-   mac.init(key);
-  } catch (NoSuchAlgorithmException e) {
-   e.printStackTrace();
-   return new byte[0];
-  }catch (InvalidKeyException e) {
-   e.printStackTrace();
-   return new byte[0];
-  }
-  return mac.doFinal(data);
+	 return encodeHmac(data, key, "HmacSHA1");
  }
  
  /**
@@ -172,8 +180,7 @@ public class Hmac {
   * @return 消息摘要（长度为16的字节数组）
   */
  public static byte[] encodeHmacSHA(byte[] data, byte[] key){
-  Key k = toKey(key, "HmacSHA1");
-  return encodeHmacSHA(data, k);
+	 return encodeHmac(data, key, "HmacSHA1");
  }
  
  /**
@@ -184,18 +191,7 @@ public class Hmac {
   * @return 消息摘要（长度为16的字节数组）
   */
  public static byte[] encodeHmacSHA256(byte[] data, Key key){
-  Mac mac = null;
-  try {
-   mac = Mac.getInstance("HmacSHA256");
-   mac.init(key);
-  } catch (NoSuchAlgorithmException e) {
-   e.printStackTrace();
-   return new byte[0];
-  }catch (InvalidKeyException e) {
-   e.printStackTrace();
-   return new byte[0];
-  }
-  return mac.doFinal(data);
+	 return encodeHmac(data, key, "HmacSHA256");
  }
  
  /**
@@ -206,8 +202,7 @@ public class Hmac {
   * @return 消息摘要（长度为16的字节数组）
   */
  public static byte[] encodeHmacSHA256(byte[] data, byte[] key){
-  Key k = toKey(key, "HmacSHA256");
-  return encodeHmacSHA256(data, k);
+	 return encodeHmac(data, key, "HmacSHA256");
  }
  
  
@@ -219,18 +214,7 @@ public class Hmac {
   * @return 消息摘要（长度为16的字节数组）
   */
  public static byte[] encodeHmacSHA384(byte[] data, Key key){
-  Mac mac = null;
-  try {
-   mac = Mac.getInstance("HmacSHA384");
-   mac.init(key);
-  } catch (NoSuchAlgorithmException e) {
-   e.printStackTrace();
-   return new byte[0];
-  }catch (InvalidKeyException e) {
-   e.printStackTrace();
-   return new byte[0];
-  }
-  return mac.doFinal(data);
+	 return encodeHmac(data, key, "HmacSHA384");
  }
  
  /**
@@ -241,11 +225,8 @@ public class Hmac {
   * @return 消息摘要（长度为16的字节数组）
   */
  public static byte[] encodeHmacSHA384(byte[] data, byte[] key){
-  Key k = toKey(key, "HmacSHA384");
-  return encodeHmacSHA384(data, k);
+	 return encodeHmac(data, key, "HmacSHA384");
  }
- 
- 
  
  /**
   * 使用HmacSHA512消息摘要算法计算消息摘要
@@ -255,18 +236,7 @@ public class Hmac {
   * @return 消息摘要（长度为16的字节数组）
   */
  public static byte[] encodeHmacSHA512(byte[] data, Key key){
-  Mac mac = null;
-  try {
-   mac = Mac.getInstance("HmacSHA512");
-   mac.init(key);
-  } catch (NoSuchAlgorithmException e) {
-   e.printStackTrace();
-   return new byte[0];
-  }catch (InvalidKeyException e) {
-   e.printStackTrace();
-   return new byte[0];
-  }
-  return mac.doFinal(data);
+	 return encodeHmac(data, key, "HmacSHA512");
  }
  
  /**
@@ -277,46 +247,28 @@ public class Hmac {
   * @return 消息摘要（长度为16的字节数组）
   */
  public static byte[] encodeHmacSHA512(byte[] data, byte[] key){
-  Key k = toKey(key, "HmacSHA512");
-  return encodeHmacSHA512(data, k);
- }
- 
- 
- private static String  showByteArray(byte[] data){
-  if(null == data){
-   return null;
-  }
-  StringBuilder sb = new StringBuilder("{");
-  for(byte b:data){
-   sb.append(b).append(",");
-  }
-  sb.deleteCharAt(sb.length()-1);
-  sb.append("}");
-  return sb.toString();
+	 return encodeHmac(data, key, "HmacSHA512");
  }
  
  public static void main(String[] args) {
+	 //生成的密钥每次都不一样
 //  byte[] key = getHmaMD5key();
 //  byte[] key = getHmaSHAkey();
 //  byte[] key = getHmaSHA256key();
 //  byte[] key = getHmaSHA384key();
   byte[] key = getHmaSHA512key();
   
-  
-  System.out.println("加密密钥: byte[]:"+showByteArray(key).length());
+  System.out.println("加密密钥: byte[]:"+Hex.encodeHexStr(key));
   
   String data = "Mac数据";
   System.out.println("加密前数据: string:"+data);
-  System.out.println("加密前数据: byte[]:"+showByteArray(data.getBytes()));
-  System.out.println();
+  System.out.println("加密前数据: byte[]:"+Hex.encodeHexStr(data.getBytes()));
 //  byte[] encodeData = encodeHmacMD5(data.getBytes(), key);
 //  byte[] encodeData = encodeHmacSHA(data.getBytes(), key);
 //  byte[] encodeData = encodeHmacSHA256(data.getBytes(), key);
 //  byte[] encodeData = encodeHmacSHA384(data.getBytes(), key);
   byte[] encodeData = encodeHmacSHA512(data.getBytes(), key);
-  System.out.println("加密后数据: byte[]:"+showByteArray(encodeData).length());
-  System.out.println("加密后数据: byte[]:"+encodeData.length);
-  System.out.println("加密后数据: hexStr:"+Hex.encodeHexStr(encodeData));
+  System.out.println("加密后数据: byte[]:"+Hex.encodeHexStr(encodeData));
   System.out.println();
  }
 }

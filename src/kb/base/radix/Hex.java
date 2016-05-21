@@ -8,16 +8,19 @@ package kb.base.radix;
  * 
  */
 public class Hex {
+	
  /**
   * 用于建立十六进制字符的输出的小写字符数组
   */
  private static final char[] DIGITS_LOWER = { '0', '1', '2', '3', '4', '5',
    '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+ 
  /**
   * 用于建立十六进制字符的输出的大写字符数组
   */
  private static final char[] DIGITS_UPPER = { '0', '1', '2', '3', '4', '5',
    '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
+ 
  /**
   * 将字节数组转换为十六进制字符数组
   * 
@@ -28,6 +31,7 @@ public class Hex {
  public static char[] encodeHex(byte[] data) {
   return encodeHex(data, true);
  }
+ 
  /**
   * 将字节数组转换为十六进制字符数组
   * 
@@ -40,6 +44,7 @@ public class Hex {
  public static char[] encodeHex(byte[] data, boolean toLowerCase) {
   return encodeHex(data, toLowerCase ? DIGITS_LOWER : DIGITS_UPPER);
  }
+ 
  /**
   * 将字节数组转换为十六进制字符数组
   * 
@@ -59,6 +64,7 @@ public class Hex {
   }
   return out;
  }
+ 
  /**
   * 将字节数组转换为十六进制字符串
   * 
@@ -69,20 +75,21 @@ public class Hex {
  public static String encodeHexStr(byte[] data) {
   return encodeHexStr(data, true);
  }
+ 
  /**
- * @Title:       encodeHexStrUsingAPI
- * @Description: 将字节数组转换为十六进制字符串，使用API落地
-  *              Will 20160508
+  * @Title:       encodeHexStrUsingAPI
+  * @Description: 将字节数组转换为十六进制字符串，使用API落地
+  *               Will 20160508
   * @param data
-  *            byte[]
+  *               byte[]
   * @return 十六进制String
- * @throws
+  * @throws
  */
  public static String encodeHexStrUsingAPI(byte[] data) {
 	StringBuffer strBuf = new StringBuffer(); 
-	for (int i = 0; i < data.length; i++)  
+	for (byte b : data)  
 	{  
-		strBuf.append(Integer.toHexString(data[i] & 0xff));  
+		strBuf.append(Integer.toHexString(b & 0xff));  
 	}  
 	return strBuf.toString();  
  }
@@ -99,6 +106,7 @@ public class Hex {
  public static String encodeHexStr(byte[] data, boolean toLowerCase) {
   return encodeHexStr(data, toLowerCase ? DIGITS_LOWER : DIGITS_UPPER);
  }
+ 
  /**
   * 将字节数组转换为十六进制字符串
   * 
@@ -111,6 +119,7 @@ public class Hex {
  protected static String encodeHexStr(byte[] data, char[] toDigits) {
   return new String(encodeHex(data, toDigits));
  }
+ 
  /**
   * 将十六进制字符数组转换为字节数组
   * 
@@ -136,17 +145,19 @@ public class Hex {
   }
   return out;
  }
+ 
  /**
  * @Title:       decodeHexStr Will 20160507
  * @Description: 将十六进制字符串转换为字节数组
- * @param        dataStr十六进制Str
- * @return       byte[]
+ * @param dataStr十六进制Str
+ * @return byte[]
  * @throws
  */
-public static byte[] decodeHexStr(String dataStr){
+ public static byte[] decodeHexStr(String dataStr){
 	 char[] data = dataStr.toCharArray();
 	 return decodeHex(data);
  }
+
  /**
   * 将十六进制字符转换成一个整数
   * 
@@ -166,6 +177,7 @@ public static byte[] decodeHexStr(String dataStr){
   }
   return digit;
  }
+ 
  public static void main(String[] args) {
   String srcStr = "待转换字符串";
   String encodeStr = encodeHexStr(srcStr.getBytes());

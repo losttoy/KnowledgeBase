@@ -125,10 +125,10 @@ public class PinYin4jUtil {
 		StringBuffer strBuf = new StringBuffer();  
 		// 将字符串转换成字节序列  
 		byte[] bGBK = cnStr.getBytes();  
-		for (int i = 0; i < bGBK.length; i++)  
+		for (byte b : bGBK)  
 		{  
 			// 将每个字符转换成ASCII码  
-			strBuf.append(Integer.toHexString(bGBK[i] & 0xff));  
+			strBuf.append(Integer.toHexString(b & 0xff));  
 		}  
 		return strBuf.toString();  
 	}  
