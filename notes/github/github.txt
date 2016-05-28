@@ -1,0 +1,145 @@
+1.操作指导
+
+Github简明教程 http://www.runoob.com/w3cnote/git-guide.html
+怎样使用Github-知乎 http://www.zhihu.com/question/20070065
+移除已经提交的目录文件 http://blog.sina.com.cn/s/blog_59fb90df0101980a.html
+
+2.实际操作
+一、客户端配置
+①生成公钥私钥对
+Will@will-pc MINGW32 ~
+$ ssh-keygen -t rsa -b 4096 -C "382447688@qq.com"
+Generating public/private rsa key pair.
+Enter file in which to save the key (/c/Users/Will/.ssh/id_rsa): /c/Users/Will/.ssh/id_rsa
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /c/Users/Will/.ssh/id_rsa.
+Your public key has been saved in /c/Users/Will/.ssh/id_rsa.pub.
+The key fingerprint is:
+SHA256:0D2cz/bT8EDgfzNnVK/bkTtc2ayoTU8K3pGC6TvtFSk 382447688@qq.com
+The key's randomart image is:
++---[RSA 4096]----+
+|            .   .|
+|       . o o .  o|
+|      . . = . . o|
+|       .   + + ++|
+|        S E * =*B|
+|         o o =.@B|
+|        o.o * *++|
+|       ....O = ..|
+|        o++ + .  |
++----[SHA256]-----+
+②添加公钥到github
+在网页端添加id_rsa.pub的内容，作为公钥
+③在客户端测试可用性
+Will@will-pc MINGW32 ~
+$ ssh -T git@github.com
+The authenticity of host 'github.com (192.30.252.129)' can't be established.
+RSA key fingerprint is SHA256:nThbg6kXUpJWGl7E1IGOCspRomTxdCARLviKw6E5SY8.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added 'github.com,192.30.252.129' (RSA) to the list of known hosts.
+Hi losttoy! You've successfully authenticated, but GitHub does not provide shell access.
+④公钥长这样
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDGYNilTKH6IXnWJws1z1drURncPVhG8kCH2A3N+Sdc2pJU1fzxQFX1xyWGmc+uWXDRz6uaQIvf04bxuU7UMgaDWXPYBFsO857QLv5w17q4hfJ1q6F8a7C1lvodpJdd2NcP1Ck1hqaEdFb5kKLogsZptK6mWaY8I4zx3CbdDgKyFkqvvxJ5IkX3l0Rr0oJDo2vBOEQAQqFsCeGJJ/W31uu0o8RqnZJPMs1jjCfIUj2aoH0F+CuE4kLW0jftxod/bQxXkYERv1mHylmzjeBqKrRr6YrfnrTaCPf9QAjbU/4FnU3v1w0SUNcbJ3xK4HwV2bT0qxxesRq6W2lk6c5GWLOhLAtj2WW00Ie2eVt0E8JvKCSTmzi2h4zXKOaPTGc8fLZ8aesw3gjJsyrhK5GKozhyZbbuG0CNwzD+kkvWanaornru1LQyOwuvjyLgHFiOmoEIkRkXLb1uaJquzAmfMNwH8Fjqq+BTGqKbCu+V3xtZ+K19OgqC2PmuV0roC3d/V/Z5GXRk2U+PrCaaE5tQSbWbC7G6vmJ8papS1ymO1OMX9i6iyMmuL6FHF7HzK+RQCwxVH61XFUcFA/PIe6JuUaiauKdEYxLf+Xlw0QvlWNcNejNqYNVFoDEWOSbFonUfkcprMizWbTRraItxtOVppBk53TNk3Oci4VFUe2zf4QjkbQ== 382447688@qq.com
+
+total：
+上面的操作是先用邮箱生成了私钥和公钥，私钥保存在本地，公钥放到web保存。
+当本地对github发起连接时，使用私钥放数据上去，用公钥解密后识别为本人，验证通过。
+
+二、本地存储库配置
+配置mixed
+进入目录，右键选择[git bash]
+Will@will-pc MINGW32 /d/Android_wrokspace/Mixed (master)
+$ git config --global user.name "losttoy"
+
+Will@will-pc MINGW32 /d/Android_wrokspace/Mixed
+$ git config --global user.email "382447688@qq.com"
+
+Will@will-pc MINGW32 /d/Android_wrokspace/Mixed
+$ git init
+Initialized empty Git repository in D:/Android_wrokspace/Mixed/.git/
+
+Will@will-pc MINGW32 /d/Android_wrokspace/Mixed (master)
+$ git remote add origin git@github.com:losttoy/mixed.git
+
+Will@will-pc MINGW32 /d/Android_wrokspace/Mixed (master)
+$ git add *
+
+Will@will-pc MINGW32 /d/Android_wrokspace/Mixed (master)
+$ git commit -m "Mixed更新20160521"
+
+Will@will-pc MINGW32 /d/Android_wrokspace/Mixed (master)
+$ git push origin master
+Counting objects: 14, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (12/12), done.
+Writing objects: 100% (14/14), 10.82 KiB | 0 bytes/s, done.
+Total 14 (delta 5), reused 0 (delta 0)
+To git@github.com:losttoy/mixed.git
+ * [new branch]      master -> master
+
+不仅是忽略文件目录，还要把已经提交到git的再删掉
+1.将忽略规则上传，以控制整个项目
+
+Will@will-pc MINGW32 /d/Android_wrokspace/KnowledgeBase (master)
+$ vim .gitignore
+/bin
+/build
+*.class
+*.chw
+*.bak
+
+Will@will-pc MINGW32 /d/Android_wrokspace/KnowledgeBase (master)
+$ git add .gitignore
+warning: LF will be replaced by CRLF in .gitignore.
+The file will have its original line endings in your working directory.
+
+Will@will-pc MINGW32 /d/Android_wrokspace/KnowledgeBase (master)
+$ git commit -m "共享忽略规则"
+[master 10b0a9d] 共享忽略规则
+warning: LF will be replaced by CRLF in .gitignore.
+The file will have its original line endings in your working directory.
+ 1 file changed, 4 insertions(+)
+ create mode 100644 .gitignore
+
+Will@will-pc MINGW32 /d/Android_wrokspace/KnowledgeBase (master)
+$ git push origin master
+Counting objects: 3, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 312 bytes | 0 bytes/s, done.
+Total 3 (delta 1), reused 0 (delta 0)
+To https://github.com/losttoy/KnowledgeBase.git
+   cd5d249..10b0a9d  master -> master
+2.按照上述规则删除bin目录下面已上传文件
+加参数（-n）代表不实际删除，仅展示待删除文件
+Will@will-pc MINGW32 /d/Android_wrokspace/KnowledgeBase (master)
+$ git rm  -r -n --cached   \bin\*
+rm 'bin/kb/base/crypto/Hmac.vsd'
+rm 'bin/kb/base/crypto/MD.xls'
+rm 'bin/kb/base/db/context.xml'
+确认无误去掉参数（-n）
+Will@will-pc MINGW32 /d/Android_wrokspace/KnowledgeBase (master)
+$ git rm  -r --cached   \bin\*
+rm 'bin/kb/base/crypto/Hmac.vsd'
+rm 'bin/kb/base/crypto/MD.xls'
+rm 'bin/kb/base/db/context.xml'
+
+Will@will-pc MINGW32 /d/Android_wrokspace/KnowledgeBase (master)
+$ git commit -m "删除bin"
+[master 72e7fa8] 删除bin
+ 3 files changed, 15 deletions(-)
+ delete mode 100644 bin/kb/base/crypto/Hmac.vsd
+ delete mode 100644 bin/kb/base/crypto/MD.xls
+ delete mode 100644 bin/kb/base/db/context.xml
+
+Will@will-pc MINGW32 /d/Android_wrokspace/KnowledgeBase (master)
+$ git push origin master
+Counting objects: 2, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (2/2), 226 bytes | 0 bytes/s, done.
+Total 2 (delta 1), reused 0 (delta 0)
+To https://github.com/losttoy/KnowledgeBase.git
+   10b0a9d..72e7fa8  master -> master
+
