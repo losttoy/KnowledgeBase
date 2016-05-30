@@ -12,10 +12,11 @@
  *
  * @UpdateHist   1.0,2016年5月9日 Will Created
  ****************
- *               1.1,2016年5月9日 Will Update
- *                          修改原因:
- *                          需求提交人:
- *                          代码检视人:
+ *               1.1,2016年5月29日 Will Update
+ *                          修改原因:在Ubuntu机器下安装新的MySQL服务，
+ *                          并相应的建立数据库、用户测试
+ *                          需求提交人:内部工具
+ *                          代码检视人:none
  ****************
  *
  * CopyRight 2016 LostToy. All rights reserved.
@@ -253,9 +254,9 @@ public class DataBaseUtil {
 		
 		//1.JDBC测试
 		String driver = "com.mysql.jdbc.Driver";
-	    String url = "jdbc:mysql://localhost:3306/shiyu";
-	    String username = "shiyu";
-	    String password = "shiyu";
+	    String url = "jdbc:mysql://localhost:3306/zhuwei";
+	    String username = "testuser";
+	    String password = "123456";
 		
 	    Connection conn = getConnectionJDBC(driver, url, username, password);
 	    dbConnectionPrcDemo(conn);
