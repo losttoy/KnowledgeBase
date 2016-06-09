@@ -1,0 +1,8 @@
+设置空格缩进
+参考：http://blog.csdn.net/cnmilan/article/details/38274425
+1. 设置
+Windows->Preferences->General->Editors->Text Editors，选中“Insert spaces for tabs”。
+
+2. 建立一个新style
+Windows->Preferences->Java->Code Styles->Formatter，点击Acitivie Profile中的New按钮。在打开的页面中的General settings中，令Tab policy为Space only
+Tab缩进值为2
