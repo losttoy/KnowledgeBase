@@ -1,7 +1,8 @@
 /**
  * @Title        ExcelUtil.java
  * @Package      kb.base
- * @Description  Excel工具类
+ * @Description  POI Excel操作演示
+ *               演示如何生成一个Excel（读取数据库表，存放到Excel）
  *               http://my.oschina.net/zimingforever/blog/101142
  *               JAVA使用POI操作excel
  *

@@ -95,8 +95,8 @@ public class HttpRequest {
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             byte[] byInPer = new byte[1024 * 10];
             int readedNum;
-			while(-1 != (readedNum = in.read(byInPer))) {
-				bos.write(byInPer, 0, readedNum);
+            while(-1 != (readedNum = in.read(byInPer))) {
+              bos.write(byInPer, 0, readedNum);
             }
             result = new String(bos.toByteArray(), charset);
 		} catch (MalformedURLException e) {
@@ -172,8 +172,8 @@ public class HttpRequest {
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             byte[] byInPer = new byte[1024 * 10];
             int readedNum;
-			while(-1 != (readedNum = in.read(byInPer))) {
-				bos.write(byInPer, 0, readedNum);
+            while(-1 != (readedNum = in.read(byInPer))) {
+              bos.write(byInPer, 0, readedNum);
             }
             result = new String(bos.toByteArray(), charset);
 		} catch (MalformedURLException e) {

@@ -1,7 +1,9 @@
 /**
  * @Title        CRC32Util.java
  * @Package      kb.base.crc
- * @Description  TODO(用一句话描述该文件做什么)
+ * @Description  循环冗余校验-32比特 一般用于文件传输的校错
+ *               encode(byte[] b);计算字节流b的CRC32值
+ *               encodeFile(String dir);计算文件dir的CRC32值
  *
  * @author       Will
  * @designer     (模块设计人)
@@ -12,10 +14,10 @@
  *
  * @UpdateHist   1.0,2016年5月21日 Will Created
  ****************
- *               1.1,2016年5月21日 Will Update
- *                          修改原因:
- *                          需求提交人:
- *                          代码检视人:
+ *               1.1,2016年11月20日 Will Update
+ *                          修改原因:调整注释，说明用法
+ *                          需求提交人:内部工具
+ *                          代码检视人:none
  ****************
  *
  * CopyRight 2016 LostToy. All rights reserved.
@@ -31,7 +33,7 @@ import java.util.zip.CRC32;
 
 /**
  * @ClassName:   CRC32Util
- * @Description: TODO(这里用一句话描述这个类的作用)
+ * @Description: 循环冗余校验-32比特
  * @author       Will
  * @date         2016年5月21日 下午11:30:00
  */
@@ -98,6 +100,10 @@ public class CRC32Util {
 	 * @throws
 	 */
 	public static void main(String[] args) {
+	  
+	  System.out.println(encode("z".getBytes()));
+	  
+	  
 		/*
 		 * 6cc0c796
 		 * 计算耗费41.41s
@@ -109,7 +115,9 @@ public class CRC32Util {
 		for (int i = 0; i < 10; ++i) {
 			long t1 = System.currentTimeMillis();
 			System.out.println(CRC32Util.encodeFile
-					 ("C:\\Users\\Will\\Desktop\\cn_visual_studio_2010_ultimate_x86_dvd_532347.iso"));
+					 ("C:\\Users\\Will\\Desktop\\Hash_1.0.4.exe"));
+//			System.out.println(CRC32Util.encodeFile
+//					 ("C:\\Users\\Will\\Desktop\\cn_visual_studio_2010_ultimate_x86_dvd_532347.iso"));
 			long t2 = System.currentTimeMillis();
 			System.out.println("计算耗费" + (t2 - t1) / 1000.0 + "s");
 		}

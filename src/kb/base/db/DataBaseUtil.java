@@ -2,6 +2,13 @@
  * @Title        DataBaseUtil.java
  * @Package      kb.base.db
  * @Description  数据库工具类
+ *               Connection getConnectionDS(String dbName)
+ *               Connection getConnectionJDBC(String driver, String url,
+ *                                            String username, String password)
+ *               closeConnection(Connection connection)
+ *               closeResultSet(ResultSet rs)
+ *               closePreparedStatement(PreparedStatement pstmt)
+ *               closeStatement(Statement stmt)
  *
  * @author       Will
  * @designer     (模块设计人)
@@ -141,12 +148,12 @@ public class DataBaseUtil {
 	 */
 	public static void closeConnection(Connection connection) {
 	    if (null != connection) {
-	    	try {
-	    		connection.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+	      try {
+	        connection.close();
+	    	} catch (SQLException e) {
+	    	  // TODO Auto-generated catch block
+	    	  e.printStackTrace();
+	    	}
 	    	connection = null;
 	    }
 		

@@ -1,7 +1,9 @@
 /**
  * @Title        PinYin4jUtil.java
  * @Package      kb.base.pinyin
- * @Description  汉字转拼音、ASCII工具类
+ * @Description  汉字转拼音工具类
+ *               String getPinYin(String src)将汉字转换为全拼 
+ *               String getPinYinHeadChar(String str)提取每个汉字的首字母
  *
  * @author       Will copy from http://blog.csdn.net/ziwen00/article/details/5436123#
  * @designer     (模块设计人)
@@ -31,7 +33,7 @@ import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombi
 
 /**
  * @ClassName:   PinYin4jUtil
- * @Description: 汉字转拼音、ASCII工具类
+ * @Description: 汉字转拼音工具类
  * @author       Will
  * @date         2016年5月7日 下午11:29:32
  */
@@ -113,25 +115,6 @@ public class PinYin4jUtil {
 		}  
 		return pinyinHead.toString();  
 	}   
-	  
-	/** 
-	 * 将字符串转换成ASCII码 
-	 *  
-	 * @param cnStr 
-	 * @return String 
-	 */  
-	public static String getCnASCII(String cnStr)  
-	{  
-		StringBuffer strBuf = new StringBuffer();  
-		// 将字符串转换成字节序列  
-		byte[] bGBK = cnStr.getBytes();  
-		for (byte b : bGBK)  
-		{  
-			// 将每个字符转换成ASCII码  
-			strBuf.append(Integer.toHexString(b & 0xff));  
-		}  
-		return strBuf.toString();  
-	}  
 
 	/**
 	 * @Title:       main
@@ -146,7 +129,6 @@ public class PinYin4jUtil {
 		String cnStr = "诸伟666走路去旅游";  
 		System.out.println(getPinYin(cnStr));  
 		System.out.println(getPinYinHeadChar(cnStr));  
-		System.out.println(getCnASCII(cnStr));  
 	}
 
 }

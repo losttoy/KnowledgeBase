@@ -259,6 +259,7 @@ public class Hmac {
   byte[] key = getHmaSHA512key();
   
   System.out.println("加密密钥: byte[]:"+Hex.encodeHexStr(key));
+  System.out.println("加密密钥长度：" + key.length);
   
   String data = "Mac数据";
   System.out.println("加密前数据: string:"+data);
@@ -269,6 +270,7 @@ public class Hmac {
 //  byte[] encodeData = encodeHmacSHA384(data.getBytes(), key);
   byte[] encodeData = encodeHmacSHA512(data.getBytes(), key);
   System.out.println("加密后数据: byte[]:"+Hex.encodeHexStr(encodeData));
+  System.out.println("加密后数据长度：" + encodeData.length);
   System.out.println();
  }
 }
