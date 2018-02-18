@@ -20,8 +20,13 @@
  * @UpdateHist   1.0,2016年5月9日 Will Created
  ****************
  *               1.1,2016年5月29日 Will Update
- *                          修改原因:在Ubuntu机器下安装新的MySQL服务，
+ *                          修改原因:在Ubuntu机器下安装MySQL服务，
  *                          并相应的建立数据库、用户测试
+ *                          需求提交人:内部工具
+ *                          代码检视人:none
+ *               1.2,2016年6月5日 Will Update
+ *                          修改原因:支持SqlServer的JDBC方式和JNDI方式
+ *                                 修正关闭对象时置null不成功的问题。
  *                          需求提交人:内部工具
  *                          代码检视人:none
  ****************
@@ -148,13 +153,12 @@ public class DataBaseUtil {
 	 */
 	public static void closeConnection(Connection connection) {
 	    if (null != connection) {
-	      try {
-	        connection.close();
-	    	} catch (SQLException e) {
-	    	  // TODO Auto-generated catch block
-	    	  e.printStackTrace();
-	    	}
-	    	connection = null;
+	    	try {
+	    		connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	    }
 		
 	}
@@ -171,12 +175,10 @@ public class DataBaseUtil {
 	    	try {
 	    		rs.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				  // TODO Auto-generated catch block
+				  e.printStackTrace();
 			}
-	    	rs = null;
 	    }
-		
 	}
 	
 	/**
@@ -194,7 +196,6 @@ public class DataBaseUtil {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			pstmt = null;
 		}
 		
 	}
@@ -214,7 +215,6 @@ public class DataBaseUtil {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			stmt = null;
 		}
 		
 	}
@@ -243,37 +243,45 @@ public class DataBaseUtil {
 			pstmt.setString(2, "zjut");
 			pstmt.setString(3, "日志内容");
 			pstmt.executeUpdate();
-			pstmt.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			//如果有ResultSet，关闭ResultSet
-			//closeResultSet(rs);
+		  //如果有ResultSet，关闭ResultSet
+	      //closeResultSet(rs);
+		  //rs = null;
 			
-			//关闭声明
-			closePreparedStatement(pstmt);
+		  //关闭声明
+		  closePreparedStatement(pstmt);
+		  pstmt = null;
 		}
 		
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) {/*
 		
 		//1.JDBC测试
-		String driver = "com.mysql.jdbc.Driver";
-	    String url = "jdbc:mysql://localhost:3306/zhuwei";
-	    String username = "testuser";
-	    String password = "123456";
+		//SQLSERVER
+		String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+	    String url = "jdbc:sqlserver://localhost:1433;databaseName=XYFOOD_TEST";
+	    String username = "sa";
+	    String password = "*";
+	    //MYSQL
+		driver = "com.mysql.jdbc.Driver";
+	    url = "jdbc:mysql://localhost:3306/zhuwei";
+	    username = "testuser";
+	    password = "123456";
 		
 	    Connection conn = getConnectionJDBC(driver, url, username, password);
 	    dbConnectionPrcDemo(conn);
-	    closeConnection(conn);
+	    closeConnection(conn);*/
 	    
 	    //2.DataSource测试
 	    //须在Web容器中才能正常使用
-	    conn = getConnectionDS("shiyu");
+		Connection conn = getConnectionDS("sqlserver/default");
 	    dbConnectionPrcDemo(conn);
 	    closeConnection(conn);
+	    conn = null;
 	    
 	}
 }
