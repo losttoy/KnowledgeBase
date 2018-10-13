@@ -6,7 +6,7 @@ import java.util.Set;
 public class Count24Util {
 
   public static void main(String[] args) {
-    calc24(1, 2, 3, 4);
+    System.out.println(calc24(13, 6, 6, 9));
   }
   
   static String calc24 (int ...in24) {
@@ -218,5 +218,14 @@ class Temp {
   }
   public void setResult(int result) {
     this.result = result;
+  }
+  
+  @Override
+  public boolean equals(Object obj) {
+    return calc.equals(((Temp)obj).getCalc());
+  }
+  @Override
+  public int hashCode(){
+    return calc.hashCode();
   }
 }
