@@ -30,8 +30,8 @@ class Credit:
       args=[1]
       for i in range(1,month):
         args.append(0)
-      args.append(-1-principal/pi*month)
-      args.append(principal/pi*month)
+      args.append(-1-principal*1.0/pi*month)
+      args.append(principal*1.0/pi*month)
       result =  np.roots(args)
 
       x = 12*((np.real(result[len(result)-1])**-1)-1)*100
@@ -47,6 +47,6 @@ class Credit:
     #蚂蚁借呗一万借6个月 还10555
     #python ma.py 4 6 10000 10555
     #年化利率=4.75%
-      return ("%.2f%%"%((pi/principal-1)/month*12*100))
+      return ("%.2f%%"%((pi*1.0/principal-1)/month*12*100))
     else:
       return "ERROR"
