@@ -8,5 +8,6 @@
 	<classpathentry kind="lib" path="lib/poi/poi-3.14-20160307.jar" sourcepath="lib/poi/poi-3.14.zip"/>
 	<classpathentry kind="lib" path="lib/servlet/servlet-api-2.5.jar"/>
 	<classpathentry kind="lib" path="lib/sql/mysql/mysql-connector-java-5.1.25-bin.jar"/>
+	<classpathentry kind="lib" path="lib/sql/mysql/mysql-connector-java-8.0.13.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

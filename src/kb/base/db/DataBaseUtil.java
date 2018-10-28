@@ -13,7 +13,7 @@
  * @author       Will
  * @designer     (模块设计人)
  * @reviewer     (代码检视人)
- * @version      1.0,2016年5月9日
+ * @version      1.3,2018年10月28日
  *
  * @ReqPresenter 需求提交人:内部工具
  *
@@ -27,6 +27,10 @@
  *               1.2,2016年6月5日 Will Update
  *                          修改原因:支持SqlServer的JDBC方式和JNDI方式
  *                                 修正关闭对象时置null不成功的问题。
+ *                          需求提交人:内部工具
+ *                          代码检视人:none
+ *               1.3,2018年10月28日 Will Update
+ *                          修改原因:支持mysql8
  *                          需求提交人:内部工具
  *                          代码检视人:none
  ****************
@@ -258,7 +262,9 @@ public class DataBaseUtil {
 		
 	}
 	
-	public static void main(String[] args) {/*
+	public static void main(String[] args) {
+	  
+	  Connection conn;
 		
 		//1.JDBC测试
 		//SQLSERVER
@@ -271,17 +277,23 @@ public class DataBaseUtil {
 	    url = "jdbc:mysql://localhost:3306/zhuwei";
 	    username = "testuser";
 	    password = "123456";
+      //MYSQL8
+	    //https://blog.csdn.net/wshxhghsjjsn/article/details/80555800
+    driver = "com.mysql.cj.jdbc.Driver";
+      url = "jdbc:mysql://losttoy.cc:3306/zhuwei?useSSL=FALSE&serverTimezone=UTC";
+      username = "testuser";
+      password = "password";
 		
-	    Connection conn = getConnectionJDBC(driver, url, username, password);
+	    conn = getConnectionJDBC(driver, url, username, password);
 	    dbConnectionPrcDemo(conn);
-	    closeConnection(conn);*/
+	    closeConnection(conn);
 	    
 	    //2.DataSource测试
 	    //须在Web容器中才能正常使用
-		Connection conn = getConnectionDS("sqlserver/default");
-	    dbConnectionPrcDemo(conn);
-	    closeConnection(conn);
-	    conn = null;
+    conn = getConnectionDS("sqlserver/default");
+      dbConnectionPrcDemo(conn);
+      closeConnection(conn);
+      conn = null;
 	    
 	}
 }
