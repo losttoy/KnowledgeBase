@@ -237,15 +237,15 @@ public class DataBaseUtil {
 			return;
 		}
 		
-		String INSERT_SQL = "insert into log values(?,?,?)";
+		String INSERT_SQL = "insert into log values(now(),?,?)";
 
 		PreparedStatement pstmt = null;
 		
 		try {
 			pstmt = connection.prepareStatement(INSERT_SQL);
-			pstmt.setTimestamp(1, new Timestamp(System.currentTimeMillis()));
-			pstmt.setString(2, "zjut");
-			pstmt.setString(3, "日志内容");
+			//pstmt.setTimestamp(1, new Timestamp(System.currentTimeMillis()));
+			pstmt.setString(1, "zjut");
+			pstmt.setString(2, "日志内容");
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
