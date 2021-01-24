@@ -4,17 +4,24 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Count24Util {
+    
+    static int deep = 0;
 
   public static void main(String[] args) {
-    System.out.println(calc24(13, 6, 6, 9));
+//    System.out.println(calc24(13, 6, 6, 9));
+    System.out.println(calc24(10, 9, 10, 3));
   }
   
   static String calc24 (int ...in24) {
+      
+      System.out.println("-----");
     
     StringBuffer sb = new StringBuffer();
     for (Temp temp : calcAll(in24)) {
       if (24 == temp.getResult()) {
         sb.append(""+temp.getCalc() + "\r\n");
+      } else {
+//          System.out.println(temp.getCalc() + " = " + temp.getResult());
       }
     }
 
@@ -84,19 +91,34 @@ public class Count24Util {
   }
   
   private static Set<Temp> calcAll(int... nums) {
+  
+      for(int i = 0; i < deep; ++i) {
+          System.out.print("*");
+          
+      }
+      
+      String tag = "";
+      for (int num : nums) {
+          tag += num + " ";
+      }
+//      System.out.println(deep + ":" + tag);
+      System.out.println(tag);
+      
     
     Set<Temp> retArrStr = new HashSet<Temp>();
     
     int size = nums.length;
     assert size <= 4 : "Size Bigger Than 4";
 
+//    System.out.println("[" + tag + "]deep += 1");
+    deep += 1;
     switch (size) {
     case 1:
       Temp temp = new Temp();
       temp.setCalc("" + nums[0] + "");
       temp.setResult(nums[0]);
       retArrStr.add(temp);
-      return retArrStr;
+      break;
     case 2:
       Set<Temp> a = calcAll(nums[0]);
       Set<Temp> b = calcAll(nums[1]);
@@ -119,17 +141,21 @@ public class Count24Util {
       break;
     case 4:
       //1+3
-      //nums[0] nums[1] nums[2] nums[3] 
+      System.out.println("nums[0]&nums[1] nums[2] nums[3] ");
       a = calcAll(nums[0]);
       b = calcAll(nums[1], nums[2], nums[3]);
       retArrStr.addAll(combine(a, b));
-      //nums[1] nums[0] nums[2] nums[3] 
+      System.out.println("nums[1]&nums[0] nums[2] nums[3] ");
       a = calcAll(nums[1]);
       b = calcAll(nums[0], nums[2], nums[3]);
       retArrStr.addAll(combine(a, b));
-      //nums[2] nums[0] nums[1] nums[3] 
+      System.out.println("nums[2]&nums[0] nums[1] nums[3] ");
       a = calcAll(nums[2]);
       b = calcAll(nums[0], nums[1], nums[3]);
+      retArrStr.addAll(combine(a, b));
+      System.out.println("nums[3]&nums[0] nums[1] nums[2] ");
+      a = calcAll(nums[3]);
+      b = calcAll(nums[0], nums[1], nums[2]);
       retArrStr.addAll(combine(a, b));
       
       //2+2
@@ -147,6 +173,8 @@ public class Count24Util {
       retArrStr.addAll(combine(a, b));
       break;
     }
+//    System.out.println("[" + tag + "]deep -= 1");
+    deep -= 1;
     
     return retArrStr;
     
@@ -159,39 +187,39 @@ public class Count24Util {
     for (Temp aa : a) {
       for (Temp bb : b) {
         Temp temp = new Temp();
-        temp.setCalc("(" + aa.getCalc() + "+" + bb.getCalc() + ")");
+        temp.setCalc("(" + aa.getCalc() + " + " + bb.getCalc() + ")");
         temp.setResult(aa.getResult() + bb.getResult());
         retArrStr.add(temp);
         temp = new Temp();
-        temp.setCalc("(" + aa.getCalc() + "-" + bb.getCalc() + ")");
+        temp.setCalc("(" + aa.getCalc() + " - " + bb.getCalc() + ")");
         temp.setResult(aa.getResult() - bb.getResult());
         retArrStr.add(temp);
         temp = new Temp();
-        temp.setCalc("(" + aa.getCalc() + "*" + bb.getCalc() + ")");
+        temp.setCalc("(" + aa.getCalc() + " * " + bb.getCalc() + ")");
         temp.setResult(aa.getResult() * bb.getResult());
         retArrStr.add(temp);
         if ((bb.getResult() != 0)&&((aa.getResult() % bb.getResult()) == 0)){
           temp = new Temp();
-          temp.setCalc("(" + aa.getCalc() + "/" + bb.getCalc() + ")");
+          temp.setCalc("(" + aa.getCalc() + " / " + bb.getCalc() + ")");
           temp.setResult(aa.getResult() / bb.getResult());
           retArrStr.add(temp);
         }
 
         temp = new Temp();
-        temp.setCalc("(" + bb.getCalc() + "+" + aa.getCalc() + ")");
+        temp.setCalc("(" + bb.getCalc() + " + " + aa.getCalc() + ")");
         temp.setResult(bb.getResult() + aa.getResult());
         retArrStr.add(temp);
         temp = new Temp();
-        temp.setCalc("(" + bb.getCalc() + "-" + aa.getCalc() + ")");
+        temp.setCalc("(" + bb.getCalc() + " - " + aa.getCalc() + ")");
         temp.setResult(bb.getResult() - aa.getResult());
         retArrStr.add(temp);
         temp = new Temp();
-        temp.setCalc("(" + bb.getCalc() + "*" + aa.getCalc() + ")");
+        temp.setCalc("(" + bb.getCalc() + " * " + aa.getCalc() + ")");
         temp.setResult(bb.getResult() * aa.getResult());
         retArrStr.add(temp);
         if ((aa.getResult() != 0)&&((bb.getResult() % aa.getResult()) == 0)){
           temp = new Temp();
-          temp.setCalc("(" + bb.getCalc() + "/" + aa.getCalc() + ")");
+          temp.setCalc("(" + bb.getCalc() + " / " + aa.getCalc() + ")");
           temp.setResult(bb.getResult() / aa.getResult());
           retArrStr.add(temp);
         }
