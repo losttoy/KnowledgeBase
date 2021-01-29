@@ -1,2 +1,7 @@
 通过PYTHON搭建HTTP服务器。JAVA通过网络访问PYTHON服务。
 {"mod":"1","month":60,"principal":1000000,"pi":1125414.72}
+
+start.sh
+nohup python CreditHttpHandler.py &
+
+python ma.py 2 360 "118" "216"

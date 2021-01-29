@@ -41,7 +41,7 @@ class Credit:
     #房贷借100w 借5年 还款112.072917w
     #python ma.py 2 60 1000000 1120729.17
     #年化利率=4.75%
-      return ("%.2f%%"%(12*(pi-principal)*2/(month+1)/principal*100))
+      return ("%.2f%%"%(12.0*(pi-principal)*2.0/(month+1)/principal*100.0))
     elif mod == '3' or mod == '4':
     #usage
     #蚂蚁借呗一万借6个月 还10555
